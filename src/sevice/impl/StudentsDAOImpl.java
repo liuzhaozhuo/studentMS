@@ -42,7 +42,24 @@ public class StudentsDAOImpl  implements IStudentsDAO{
 	@Override
 	public Students queryStudentsBySid(String sid) {
 		// TODO Auto-generated method stub
-		return null;
+		Transaction tx = null;
+		Students s = null;
+				
+		try{
+			Session session = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
+			tx = session.beginTransaction();
+			s =(Students) session.get(Students.class, sid);
+			tx.commit();
+			return s;
+		}catch(Exception e){
+			e.printStackTrace();
+			tx.commit();
+			return s;
+		}finally{
+			if(tx!=null){
+				tx = null;
+			}
+		}
 	}
 
 	@Override
@@ -69,7 +86,22 @@ public class StudentsDAOImpl  implements IStudentsDAO{
 	@Override
 	public boolean updateStudents(Students s) {
 		// TODO Auto-generated method stub
-		return false;
+		Transaction tx = null;				
+		try{
+			Session session = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
+			tx = session.beginTransaction();
+			session.update(s);
+			tx.commit();
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			tx.commit();
+			return false;
+		}finally{
+			if(tx!=null){
+				tx = null;
+			}
+		}
 	}
 
 	@Override
