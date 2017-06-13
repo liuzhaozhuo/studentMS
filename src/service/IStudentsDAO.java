@@ -10,6 +10,9 @@ public interface IStudentsDAO {
 	//查询所有学生信息
 	public List<Students> queryAllStudents();
 	
+	//根据姓名查询学生信息
+	public List<Students> queryStudentsByName(String sname);
+	
 	//根据学号查询学生信息
 	public Students queryStudentsBySid(String sid);
 	
@@ -21,4 +24,5 @@ public interface IStudentsDAO {
 	
 	//删除学生信息
 	public boolean deleteStudents(String sid);
+
 }

@@ -168,4 +168,32 @@ public class StudentsDAOImpl  implements IStudentsDAO{
 		}		
 	}
 
+	//根据姓名查询学生信息
+	@Override
+	public List<Students> queryStudentsByName(String sname) {
+		// TODO Auto-generated method stub
+		Transaction tx = null;
+		List<Students> list = null;
+		String hql;
+				
+		try{
+			Session session = MyHibernateSessionFactory.getSessionFactory().getCurrentSession();
+			tx = session.beginTransaction();		
+			hql = "from Students where sname=?";
+			Query query = session.createQuery(hql);
+			query.setParameter(0, sname);
+			list = query.list();
+			tx.commit();
+			return list;
+		}catch(Exception e){
+			e.printStackTrace();
+			tx.commit();
+			return list;
+		}finally{
+			if(tx!=null){
+				tx = null;
+			}
+		}
+	}
+
 }

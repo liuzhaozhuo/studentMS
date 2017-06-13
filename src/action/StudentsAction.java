@@ -31,6 +31,15 @@ public class StudentsAction extends SuperAction implements ModelDriven<Students>
 		return "query_success";
 	}
 	
+	//根据姓名查询学生信息动作
+	public String queryByName(){
+		String sname = request.getParameter("sname");
+		IStudentsDAO sdao = new StudentsDAOImpl();
+		List<Students> list = sdao.queryStudentsByName(sname);
+		session.setAttribute("students_list", list);
+		return "query_success";
+	}
+	
 	//删除学生动作
 	public String delete(){
 		IStudentsDAO sdao = new StudentsDAOImpl();
